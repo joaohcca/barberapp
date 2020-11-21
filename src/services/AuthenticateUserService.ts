@@ -1,8 +1,9 @@
 import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import User from '../models/User';
 
+import User from '../models/User';
+import AppError from '../errors/appError'
 import authConfig from '../config/auth'
 
 interface Request {
@@ -22,14 +23,14 @@ class AuthenticateUserService {
         const user = await usersRepository.findOne({ where: { email } });
 
         if (!user) {
-            throw new Error('Failed to authenticate with email/password!')
+            throw new AppError('Failed to authenticate with email/password!',401)
         }
 
         const passwordMatched = await compare(password, user.password)
 
 
         if (!passwordMatched) {
-            throw new Error('Failed to authenticate with email/password!')
+            throw new AppError('Failed to authenticate with email/password!',401)
         }
 
         const { secret, expiresIn } = authConfig.jwt
