@@ -15,12 +15,12 @@ UserRouter.post('/', async (request, response) => {
     
     const createUser = new CreateUserService();
     
-    const user = await createUser.execute({
+    let user = await createUser.execute({
         name,
         email,
         password,
     });
-
+  
     const noPassUser = {
       id: user.id,
       name: user.name,
@@ -29,7 +29,7 @@ UserRouter.post('/', async (request, response) => {
       updated_at: user.updated_at,
     }
     
-    return response.json(noPassUser);
+    return response.json(user);
   
 });
 
@@ -50,7 +50,7 @@ UserRouter.patch('/avatar', ensureAuthenticated, upload.single('avatar'), async 
       created_at: user.created_at,
       updated_at: user.updated_at,
     }
-    return response.json(noPassUser) 
+    return response.json(user) 
 
 })
 export default UserRouter;
