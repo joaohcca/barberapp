@@ -2,9 +2,9 @@ import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
-import User from '../models/User';
-import AppError from '../errors/appError'
-import authConfig from '../config/auth'
+import User from '../infra/typeorm/entities/User';
+import AppError from '@shared/errors/appError'
+import authConfig from '@config/auth'
 
 interface Request {
     email: string;
@@ -17,20 +17,20 @@ interface Response {
 }
 
 class AuthenticateUserService {
-    public async execute({email, password}: Request): Promise<Response> {
+    public async execute({ email, password }: Request): Promise<Response> {
         const usersRepository = getRepository(User)
 
         const user = await usersRepository.findOne({ where: { email } });
 
         if (!user) {
-            throw new AppError('Failed to authenticate with email/password!',401)
+            throw new AppError('Failed to authenticate with email/password!', 401)
         }
 
         const passwordMatched = await compare(password, user.password)
 
 
         if (!passwordMatched) {
-            throw new AppError('Failed to authenticate with email/password!',401)
+            throw new AppError('Failed to authenticate with email/password!', 401)
         }
 
         const { secret, expiresIn } = authConfig.jwt
@@ -40,8 +40,8 @@ class AuthenticateUserService {
             expiresIn,
         })
         return { user, token }
-    
-}
+
+    }
 }
 
 export default AuthenticateUserService
