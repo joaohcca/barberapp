@@ -3,8 +3,8 @@ import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import CreateUserService from './CreateUserService'
 describe('CreateUser', () => {
   it('it should be able to create a new user', async () => {
-    const fakeAppointmentRepository = new FakeUsersRepository();
-    const createUser = new CreateUserService(fakeAppointmentRepository);
+    const fakeUsersRepository = new FakeUsersRepository();
+    const createUser = new CreateUserService(fakeUsersRepository);
     const user = await createUser.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',
