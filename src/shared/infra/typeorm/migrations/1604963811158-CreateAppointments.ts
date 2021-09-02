@@ -1,6 +1,5 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
-import { uuid } from "uuidv4";
-import appointmentsRouter from "../../routes/appointments.routes";
+import { v4 } from "uuid";
 
 export default class CreateAppointments1604963811158 implements MigrationInterface {
 
@@ -13,7 +12,7 @@ export default class CreateAppointments1604963811158 implements MigrationInterfa
                 type: 'uuid', //uuid
                 isPrimary: true,
                 generationStrategy: 'uuid',
-                default: 'uuid_generate_v4()'  
+                default: 'uuid_generate_v4()'
             },
             {
                 name: 'provider',
@@ -29,13 +28,13 @@ export default class CreateAppointments1604963811158 implements MigrationInterfa
               name: 'created_at',
               type: 'timestamp',
               default: 'now()',
-              
+
           },
           {
               name: 'updated_at',
               type: 'timestamp',
               default: 'now()',
-              
+
           },
           ],
         }),
@@ -55,8 +54,8 @@ export default class CreateAppointments1604963811158 implements MigrationInterfa
  * (novo dev) 3 editou a tabela de agendamentos
  * 4 nova tabela: Compras
  * Migration evita que os bancos estejam atualizados de formas diferentes
- * 
+ *
  * up efetua as alterações no banco de dados
  * down roolback ( se der errado algo por conta do up, o down desfaz)
- * 
+ *
  */
