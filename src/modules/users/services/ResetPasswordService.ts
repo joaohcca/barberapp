@@ -4,7 +4,7 @@ import IUserTokensRepository from '@modules/users/repositories/IUserTokensReposi
 import IUsersRepository from '@modules/users/repositories/IUsersRepository'
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
-import AppError from '@shared/errors/appError';
+import AppError from '@shared/errors/AppError';
 
 //import User from '../infra/typeorm/entities/User';
 

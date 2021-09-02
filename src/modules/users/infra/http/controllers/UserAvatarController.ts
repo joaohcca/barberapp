@@ -5,13 +5,12 @@ import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarSer
 
 export default class UserAvatarController {
   public async update(request: Request, response: Response): Promise<Response> {
-
     const updateUserAvatar = container.resolve(UpdateUserAvatarService);
 
     const user = await updateUserAvatar.execute({
       user_id: request.user.id,
       avatarFilename: request.file.filename,
-    })
+    });
 
     const noPassUser = {
       id: user.id,
@@ -20,7 +19,8 @@ export default class UserAvatarController {
       avatar: user.avatar,
       created_at: user.created_at,
       updated_at: user.updated_at,
-    }
-    return response.json(user)
+    };
+
+    return response.json(noPassUser);
   }
 }

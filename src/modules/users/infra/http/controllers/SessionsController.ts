@@ -5,15 +5,14 @@ import AuthenticateUserService from '@modules/users/services/AuthenticateUserSer
 
 export default class SessionsController {
   public async create(request: Request, response: Response): Promise<Response> {
-
-    const { email, password } = request.body
+    const { email, password } = request.body;
 
     const authenticateUser = container.resolve(AuthenticateUserService);
 
     const { user, token } = await authenticateUser.execute({
       email,
       password,
-    })
+    });
 
     const noPassUser = {
       id: user.id,
@@ -21,9 +20,8 @@ export default class SessionsController {
       email: user.email,
       created_at: user.created_at,
       updated_at: user.updated_at,
-    }
+    };
 
-    return response.json({ user, token });
-
+    return response.json({ user: noPassUser, token });
   }
 }

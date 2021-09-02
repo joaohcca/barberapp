@@ -1,9 +1,11 @@
-import AppError from '@shared/errors/appError';
+import AppError from '@shared/errors/AppError';
+
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeUserTokensRepository from '../repositories/fakes/FakeUserTokensRepository';
+import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
+
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import ResetPasswordService from './ResetPasswordService';
-import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeMailProvider: FakeMailProvider;

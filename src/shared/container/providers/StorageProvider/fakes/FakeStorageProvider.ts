@@ -1,8 +1,4 @@
-import fs from 'fs';
-import path from 'path';
 import IStorageProvider from '../models/IStorageProvider';
-
-
 
 class FakeStorageProvider implements IStorageProvider {
   private storage: string[] = [];

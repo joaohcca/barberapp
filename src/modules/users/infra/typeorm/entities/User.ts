@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('users')
 class User {
@@ -22,12 +28,6 @@ class User {
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  /* constructor({ provider, date }: Omit<Appointment, 'id'>) {
-    this.id = uuid();0
-    this.provider = provider;
-    this.date = date;
-  } */
 }
 
 export default User;

@@ -5,17 +5,16 @@ import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
 import User from '../../infra/typeorm/entities/User';
 
-class FakeUserTokenRepository implements IUsersRepository {
+class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
-
-  public async findByEmail(email: string): Promise<User | undefined> {
-    const user = this.users.find(user => user.email === email);
-
-    return user;
-  }
 
   public async findById(id: string): Promise<User | undefined> {
     const user = this.users.find(user => user.id === id);
+    return user;
+  }
+
+  public async findByEmail(email: string): Promise<User | undefined> {
+    const user = this.users.find(user => user.email === email);
 
     return user;
   }
@@ -27,7 +26,7 @@ class FakeUserTokenRepository implements IUsersRepository {
 
     this.users.push(user);
 
-    return user
+    return user;
   }
 
   public async save(user: User): Promise<User> {
@@ -39,4 +38,4 @@ class FakeUserTokenRepository implements IUsersRepository {
   }
 }
 
-export default FakeUserTokenRepository;
+export default FakeUsersRepository;
