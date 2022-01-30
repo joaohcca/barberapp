@@ -5,6 +5,7 @@ import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeUserTokensRepository from '../repositories/fakes/FakeUserTokensRepository';
 
 import SendForgotPasswordEmailService from './SendForgotPasswordEmailService';
+import ISendMailDTO from '@shared/container/providers/MailProvider/dtos/ISendMailDTO';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeMailProvider: FakeMailProvider;

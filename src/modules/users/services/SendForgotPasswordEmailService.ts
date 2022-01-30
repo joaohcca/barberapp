@@ -5,6 +5,7 @@ import AppError from '@shared/errors/AppError';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
+import { template } from 'handlebars';
 
 interface IRequest {
   email: string;
@@ -21,7 +22,7 @@ class SendForgotPasswordEmailService {
 
     @inject('UserTokensRepository')
     private userTokensRepository: IUserTokensRepository,
-  ) {}
+  ) { }
 
   public async execute({ email }: IRequest): Promise<void> {
     const user = await this.usersRepository.findByEmail(email);
@@ -32,10 +33,19 @@ class SendForgotPasswordEmailService {
 
     const { token } = await this.userTokensRepository.generate(user.id);
 
-    await this.mailProvider.sendMail(
-      email,
-      `Pedido de recuperação de senha recebido: ${token}`,
-    );
+    await this.mailProvider.sendMail({
+      to: {
+        name: user.name,
+        email: user.email,
+      },
+      subject: 'Recuperação de senha do GoBarber',
+      templateData: {
+        template: 'Olá, {{name}}: segue o token {{token}}',
+        variables: {
+          name: user.name
+        }
+      }
+    });
   }
 }
 
