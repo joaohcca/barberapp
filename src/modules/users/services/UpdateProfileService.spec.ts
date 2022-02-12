@@ -1,5 +1,4 @@
 import AppError from '@shared/errors/AppError';
-import usersRouter from '../infra/http/routes/users.routes';
 
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
