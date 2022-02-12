@@ -17,7 +17,7 @@ describe('UpdateUserAvatar', () => {
       fakeUsersRepository,
       fakeStorageProvider,
     );
-  });
+  });''
   it('should be able to update existing user avatar', async () => {
 
 
