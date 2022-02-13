@@ -27,7 +27,7 @@ class ListProviderMonthAvailabilityService {
   public async execute({ provider_id, month, year }: IRequest): Promise<IResponse> {
     /**a ideia é puxar os appointmetns do banco, fazer uma lógica e depois devolver a availability*/
 
-    const appointments = await this.appointmentsRepository.findAllInMonthFromFrovider({ provider_id, month, year })
+    const appointments = await this.appointmentsRepository.findAllInMonthFromProvider({ provider_id, month, year })
 
     const numberOfDaysInMonth = getDaysInMonth(
       new Date(year, month - 1)
