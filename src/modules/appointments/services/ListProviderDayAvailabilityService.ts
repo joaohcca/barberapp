@@ -1,7 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 import {
-  getHours, getDate, getYear,
-  getDaysInMonth
+  getHours, isAfter
 } from 'date-fns';
 
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
@@ -26,25 +25,28 @@ class ListProviderDayAvailabilityService {
   ) { }
 
   public async execute({ provider_id, day, month, year }: IRequest): Promise<IResponse> {
-    /**a ideia é puxar os appointmenys do banco, fazer uma lógica e depois devolver a availability do dia especifico*/
+
     const appointmentsDayFromProvider = await this.appointmentsRepository.findAllInDayFromProvider({
       provider_id, day, month, year
     })
-    /**falta criar o array e devolver */
+
     const hourStart = 8;
     const eachHourArray = Array.from(
       { length: 10 }, (_, index) => index + hourStart)
 
 
-    const availability = eachHourArray.map(hour => {
+    const currentDate = new Date(Date.now());
 
+    const availability = eachHourArray.map(hour => {
       const hasAppointmentInHour = appointmentsDayFromProvider.find(appointment =>
         getHours(appointment.date) === hour
       )
 
+      const compareDate = new Date(year, month - 1, day, hour);
+
       return {
         hour,
-        available: !hasAppointmentInHour,
+        available: !hasAppointmentInHour && isAfter(compareDate, currentDate)
       }
     })
 
