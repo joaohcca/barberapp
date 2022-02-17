@@ -12,11 +12,11 @@ import User from '@modules/users/infra/typeorm/entities/User';
 /**
  * One to One => Relação limitada a um pra um
  * One to Many => Relação de um usuário para multiplos agendamentos
- * Many to Many =>  
+ * Many to Many =>
  * Many to One =>
  */
 
-// 
+//
 
 @Entity('appointments')
 class Appointment {
@@ -29,6 +29,13 @@ class Appointment {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'provider_id' })
   provider: User;
+
+  @Column()
+  user_id: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column('timestamp with time zone')
   date: Date;
